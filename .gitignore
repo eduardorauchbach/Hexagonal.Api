@@ -1,0 +1,26 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+# Visual Studio temporary files and directories
+.vs/
+bin/
+obj/
+Debug/
+Release/
+packages/
+*.user
+*.suo
+*.cache
+
+# ReSharper files
+_ReSharper*/
+
+# Rider files
+.idea/
+
+# NuGet
+*.nupkg
+*.dll
+*.pdb
+/Hexagonal.Api/appsettings.json
