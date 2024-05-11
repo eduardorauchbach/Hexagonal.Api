@@ -1,13 +1,10 @@
-﻿using Adapter.Azure.Blob.Configurations;
-using Hexagonal.Common.Configurations;
-using Hexagonal.Common.Constants;
+﻿using Hexagonal.Common.Constants;
 using Hexagonal.Common.DTO;
 using Hexagonal.Common.Extensions;
 using Hexagonal.Domain.Domain.Entities.Users;
 using Hexagonal.Domain.DTOs.Request.Users;
 using Hexagonal.Domain.DTOs.Response.Users;
 using Hexagonal.Repositories;
-using Microsoft.Extensions.Options;
 using RauchTech.Logging;
 using RauchTech.Logging.Aspects;
 using System.Net;

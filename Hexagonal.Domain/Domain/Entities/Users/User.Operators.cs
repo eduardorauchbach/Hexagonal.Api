@@ -4,7 +4,7 @@ namespace Hexagonal.Domain.Domain.Entities.Users
 {
     public partial class User
     {
-        public static explicit operator User(DTOUserCreateRequest dto)
+        public static implicit operator User(DTOUserCreateRequest dto)
         {
             if (dto is null)
                 return null;
