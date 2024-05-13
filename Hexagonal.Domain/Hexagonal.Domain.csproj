@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Filters\" />
-    <Folder Include="Domain\Views\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

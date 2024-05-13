@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Hexagonal.Common.Configurations;
-using Hexagonal.Domain.Domain.Entities.Users;
+using Hexagonal.Domain.Entities.Users;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

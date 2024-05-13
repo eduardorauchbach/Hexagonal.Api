@@ -15,11 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.Services", "Hexag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.Session", "Hexagonal.Session\Hexagonal.Session.csproj", "{52B5C8D8-90CF-4564-8B8D-6684594446CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RauchTech.Logging", "RauchTech.Logging\RauchTech.Logging.csproj", "{7B9D35FE-9251-471E-B307-C514C67A4740}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adapter.Azure.Blob", "Adapter.Azure.Blob\Adapter.Azure.Blob.csproj", "{FE685A95-56C5-44EA-B87F-DCD74B3D10F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RauchTech.Logging.Azure", "RauchTech.Logging.Azure\RauchTech.Logging.Azure.csproj", "{4915B317-93F6-4AA3-B4D7-42A41180A9D2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C20231B-B3DD-47C6-8D01-864F866EECB2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		CreateDB.sql = CreateDB.sql
+		Dockerfile = Dockerfile
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagonal.DTO", "Hexagonal.DTO\Hexagonal.DTO.csproj", "{C7CF0348-2569-4627-A79F-EC786CD84081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,18 +59,14 @@ Global
 		{52B5C8D8-90CF-4564-8B8D-6684594446CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52B5C8D8-90CF-4564-8B8D-6684594446CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52B5C8D8-90CF-4564-8B8D-6684594446CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B9D35FE-9251-471E-B307-C514C67A4740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B9D35FE-9251-471E-B307-C514C67A4740}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B9D35FE-9251-471E-B307-C514C67A4740}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B9D35FE-9251-471E-B307-C514C67A4740}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE685A95-56C5-44EA-B87F-DCD74B3D10F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE685A95-56C5-44EA-B87F-DCD74B3D10F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE685A95-56C5-44EA-B87F-DCD74B3D10F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE685A95-56C5-44EA-B87F-DCD74B3D10F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4915B317-93F6-4AA3-B4D7-42A41180A9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4915B317-93F6-4AA3-B4D7-42A41180A9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4915B317-93F6-4AA3-B4D7-42A41180A9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4915B317-93F6-4AA3-B4D7-42A41180A9D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CF0348-2569-4627-A79F-EC786CD84081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CF0348-2569-4627-A79F-EC786CD84081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CF0348-2569-4627-A79F-EC786CD84081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CF0348-2569-4627-A79F-EC786CD84081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

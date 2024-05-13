@@ -1,7 +1,7 @@
 ﻿using GestaoVarejoTwoS.Api.Controllers.Helper;
 using Microsoft.AspNetCore.Mvc;
-using Hexagonal.Domain.DTOs.Request.Verifications;
-using Hexagonal.Domain.DTOs.Response.Verifications;
+using Hexagonal.DTOs.Request.Verifications;
+using Hexagonal.DTOs.Response.Verifications;
 using Hexagonal.Services;
 using Hexagonal.Session;
 using Swashbuckle.AspNetCore.Annotations;

@@ -40,7 +40,7 @@ namespace Hexagonal.Api.Configurations
                  // Set the comments path for the Swagger JSON and UI.
                  var xmlFileApi = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                  var xmlFileCommon = $"Hexagonal.Common.xml";
-                 var xmlFileDomain = $"Hexagonal.Domain.xml";
+                 var xmlFileDomain = $"Hexagonal.Dtos.xml";
 
                  var xmlPathApi = Path.Combine(AppContext.BaseDirectory, xmlFileApi);
                  var xmlPathCommon = Path.Combine(AppContext.BaseDirectory, xmlFileCommon);
