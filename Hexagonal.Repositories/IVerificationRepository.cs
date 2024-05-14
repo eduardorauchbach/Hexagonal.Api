@@ -1,4 +1,4 @@
-﻿using Hexagonal.Domain.Domain.Entities.Verifications;
+﻿using Hexagonal.Domain.Entities.Verifications;
 
 namespace Hexagonal.Repositories
 {

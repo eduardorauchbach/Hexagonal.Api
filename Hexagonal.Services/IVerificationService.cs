@@ -1,5 +1,5 @@
-﻿using Hexagonal.Domain.DTOs.Request.Verifications;
-using Hexagonal.Domain.DTOs.Response.Verifications;
+﻿using Hexagonal.DTOs.Request.Verifications;
+using Hexagonal.DTOs.Response.Verifications;
 
 namespace Hexagonal.Services
 {

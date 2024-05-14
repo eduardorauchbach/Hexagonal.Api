@@ -1,8 +1,8 @@
 ﻿using Hexagonal.Common.Configurations;
 using Hexagonal.Common.Constants;
-using Hexagonal.Domain.Domain.Entities.Verifications;
-using Hexagonal.Domain.DTOs.Request.Verifications;
-using Hexagonal.Domain.DTOs.Response.Verifications;
+using Hexagonal.Domain.Entities.Verifications;
+using Hexagonal.DTOs.Request.Verifications;
+using Hexagonal.DTOs.Response.Verifications;
 using Hexagonal.Repositories;
 using Microsoft.Extensions.Options;
 using RauchTech.Logging;

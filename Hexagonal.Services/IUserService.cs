@@ -1,7 +1,7 @@
 ﻿using Hexagonal.Common.DTO;
-using Hexagonal.Domain.Domain.Entities.Users;
-using Hexagonal.Domain.DTOs.Request.Users;
-using Hexagonal.Domain.DTOs.Response.Users;
+using Hexagonal.Domain.Entities.Users;
+using Hexagonal.DTOs.Request.Users;
+using Hexagonal.DTOs.Response.Users;
 
 namespace Hexagonal.Services
 {

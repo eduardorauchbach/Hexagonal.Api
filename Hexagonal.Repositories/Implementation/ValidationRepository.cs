@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Hexagonal.Common.Extensions;
-using Hexagonal.Domain.Domain.Entities.Verifications;
+using Hexagonal.Domain.Entities.Verifications;
 using Hexagonal.Session;
 
 namespace Hexagonal.Repositories.Implementation

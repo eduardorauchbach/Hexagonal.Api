@@ -1,4 +1,4 @@
-﻿using Hexagonal.Domain.Domain.Entities.Users;
+﻿using Hexagonal.Domain.Entities.Users;
 
 namespace Hexagonal.Repositories
 {

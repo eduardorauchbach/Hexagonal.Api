@@ -19,5 +19,20 @@ namespace Hexagonal.Api.Controllers.Helper
                 };
             }
         }
+
+        public static ActionResult ToActionResult(this Result result)
+        {
+            if (result.IsSuccess)
+            {
+                return new OkObjectResult(result.Value);
+            }
+            else
+            {
+                return new ObjectResult(new { result.Message })
+                {
+                    StatusCode = (int)result.StatusCode
+                };
+            }
+        }
     }
 }

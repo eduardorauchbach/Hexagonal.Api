@@ -1,9 +1,9 @@
 ﻿using Hexagonal.Common.Constants;
 using Hexagonal.Common.DTO;
 using Hexagonal.Common.Extensions;
-using Hexagonal.Domain.Domain.Entities.Users;
-using Hexagonal.Domain.DTOs.Request.Users;
-using Hexagonal.Domain.DTOs.Response.Users;
+using Hexagonal.Domain.Entities.Users;
+using Hexagonal.DTOs.Request.Users;
+using Hexagonal.DTOs.Response.Users;
 using Hexagonal.Repositories;
 using RauchTech.Logging;
 using RauchTech.Logging.Aspects;
@@ -88,6 +88,11 @@ namespace Hexagonal.Services.Implementation
         public async Task<Result<DTOUserResponse>> Get(Guid id)
         {
             var user = await _userRepository.Get(id);
+            if (user is null)
+            {
+                return Result.Failure(Messages.UserNotFound, HttpStatusCode.NotFound);
+            }
+
             return Result.Success(user.ToDTOResponse());
         }
 

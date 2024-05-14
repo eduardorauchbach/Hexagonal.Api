@@ -7,16 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-    <PackageReference Include="Npgsql" Version="8.0.2" />
-    <PackageReference Include="RauchTech.Logging" Version="2.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Hexagonal.Common\Hexagonal.Common.csproj" />
     <ProjectReference Include="..\Hexagonal.Domain\Hexagonal.Domain.csproj" />
-    <ProjectReference Include="..\Hexagonal.Session\Hexagonal.Session.csproj" />
   </ItemGroup>
 
 </Project>
