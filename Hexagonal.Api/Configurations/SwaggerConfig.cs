@@ -40,15 +40,15 @@ namespace Hexagonal.Api.Configurations
                  // Set the comments path for the Swagger JSON and UI.
                  var xmlFileApi = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                  var xmlFileCommon = $"Hexagonal.Common.xml";
-                 var xmlFileDomain = $"Hexagonal.Dtos.xml";
+                 var xmlFileDTO = $"Hexagonal.Dto.xml";
 
                  var xmlPathApi = Path.Combine(AppContext.BaseDirectory, xmlFileApi);
                  var xmlPathCommon = Path.Combine(AppContext.BaseDirectory, xmlFileCommon);
-                 var xmlPathDomain = Path.Combine(AppContext.BaseDirectory, xmlFileDomain);
+                 var xmlPathDTO = Path.Combine(AppContext.BaseDirectory, xmlFileDTO);
 
                  options.IncludeXmlComments(xmlPathApi);
                  options.IncludeXmlComments(xmlPathCommon);
-                 options.IncludeXmlComments(xmlPathDomain);
+                 options.IncludeXmlComments(xmlPathDTO);
                  options.UseInlineDefinitionsForEnums();
              });
 
