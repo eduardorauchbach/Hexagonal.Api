@@ -96,3 +96,35 @@ graph LR
     OperatorsRes ==> ParametersRes
     linkStyle 5 stroke:dodgerblue
 ```
+
+# **Configurations**
+
+|Name|Value|
+|--|--|
+|APPLICATIONINSIGHTS_CONNECTION_STRING|Azure Application Insights conection string|
+|ApplicationName|The name that will appear in the logs|
+|LogLevel|Minimum log level to be logged, same as in the Microsoft.Logging library|
+|LogFiltersBannedParameters|Properties that are not to be mapped in the Rauchtech.Logging filters|
+|ConnectionString|Host=yourDB.sample;Port=5432;Username=??????;Password=???????;Database=????????|
+|VerificationTimeout|Timeout for the verification to expire (in minutes)|
+|VerificationMock|enables the mock of the verification, just for test purposes|
+|BlobSettings||
+|\| ConnectionString|Blob container connection string, can be found on the Azure Portal, container properties|
+|\| BaseUrl|Blob base URL, to be used when building the files URLs to be presented as output|
+
+``` json
+
+"APPLICATIONINSIGHTS_CONNECTION_STRING": "",
+"ApplicationName": "HexagonalAPI",
+"LogFiltersBannedParameters": "Password",
+"LogLevel": "Debug",
+
+"ConnectionString": "",
+"VerificationTimeout": 30,
+"VerificationMock": true,
+
+"BlobSettings": {
+  "ConnectionString": "",
+  "BaseUrl": "https://teste.blob.core.windows.net"
+}
+```
