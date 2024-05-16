@@ -7,7 +7,7 @@ namespace Hexagonal.DTOs.Response.Verifications
     /// Represents a response for a verification operation.
     /// </summary>
     [DataContract]
-    public partial class DTOVerificationValidateResponse
+    public partial record DTOVerificationValidateResponse
     {
         /// <summary>
         /// Indicates whether the verification operation was successful.

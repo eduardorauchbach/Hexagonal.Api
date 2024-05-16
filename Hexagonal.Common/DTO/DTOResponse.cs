@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Hexagonal.Common.DTO
 {
     [DataContract]
-    public abstract class DTOResponse
+    public abstract record DTOResponse
     {
         //
         // Summary:

@@ -23,24 +23,17 @@ namespace Hexagonal.Api.Controllers.v1
         [HttpPost("", Name = nameof(CreateVerification))]
         [SwaggerOperation(Summary = "Create a new verification", Description = "Creates a verification")]
         [SwaggerResponse(200, "Created verification", typeof(DTOVerificationCreateResponse))]
-        public async Task<ActionResult<DTOVerificationCreateResponse>> CreateVerification([FromBody] DTOVerificationCreateRequest request)
+        public async Task<ActionResult> CreateVerification([FromBody] DTOVerificationCreateRequest request)
         {
-            var response = await _verificationService.Create(request);
-
-            return Ok(response);
+            return await _verificationService.Create(request);
         }
 
         [HttpPost("Validate", Name = nameof(ValidateVerification))]
         [SwaggerOperation(Summary = "Validate a verification", Description = "Validate the code of a verification")]
         [SwaggerResponse(200, "Validation result", typeof(DTOVerificationValidateResponse))]
-        public async Task<ActionResult<DTOVerificationValidateResponse>> ValidateVerification([FromBody] DTOVerificationValidateRequest request)
+        public async Task<ActionResult> ValidateVerification([FromBody] DTOVerificationValidateRequest request)
         {
-            var response = await _verificationService.Validate(request);
-
-            if (response == null)
-                return NotFound();
-
-            return Ok(response);
+            return await _verificationService.Validate(request);
         }
     }
 }

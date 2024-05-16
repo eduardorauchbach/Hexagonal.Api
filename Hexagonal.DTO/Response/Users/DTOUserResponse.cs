@@ -7,7 +7,7 @@ using Hexagonal.Domain.Entities.Users;
 namespace Hexagonal.DTOs.Response.Users
 {
     [DataContract]
-    public partial class DTOUserResponse : DTOResponse
+    public partial record DTOUserResponse : DTOResponse
     {
         /// <summary>
         /// User's name.

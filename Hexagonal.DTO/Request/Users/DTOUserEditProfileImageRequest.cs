@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hexagonal.DTOs.Request.Users
 {
-    public class DTOUserEditProfileImageRequest
+    public record DTOUserEditProfileImageRequest
     {
         public required IFormFile FileData { get; set; }
     }

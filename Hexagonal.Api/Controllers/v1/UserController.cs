@@ -1,8 +1,6 @@
 ﻿using GestaoVarejoTwoS.Api.Controllers.Helper;
-using Hexagonal.Api.Controllers.Helper;
 using Hexagonal.Common.Constants;
 using Hexagonal.Common.DTO;
-using Hexagonal.Common.Entities;
 using Hexagonal.DTOs.Request.Users;
 using Hexagonal.DTOs.Response.Users;
 using Hexagonal.Services;
@@ -37,11 +35,10 @@ namespace Hexagonal.Api.Controllers.v1
         {
             if (!ValidateAnonymousEmailToken(request.Email))
             {
-                return Result.Failure(Messages.TokenEmailValidationFailed, HttpStatusCode.Unauthorized).ToActionResult();
+                return Result.Failure(Messages.TokenEmailValidationFailed, HttpStatusCode.Unauthorized);
             }
 
-            var response = await _userService.Create(request);
-            return response.ToActionResult();
+            return await _userService.Create(request);
         }
 
         [HttpGet("{id:guid}", Name = nameof(GetUserById))]
@@ -53,8 +50,7 @@ namespace Hexagonal.Api.Controllers.v1
         {
             //TODO: Validate Access
 
-            var response = await _userService.Get(id);
-            return response.ToActionResult();
+            return await _userService.Get(id);
         }
 
         [HttpPut("EditPassword/{email}", Name = nameof(EditPassword))]
@@ -65,11 +61,10 @@ namespace Hexagonal.Api.Controllers.v1
         {
             if (!ValidateAnonymousEmailToken(email))
             {
-                return Result.Failure(Messages.TokenEmailValidationFailed, HttpStatusCode.Unauthorized).ToActionResult();
+                return Result.Failure(Messages.TokenEmailValidationFailed, HttpStatusCode.Unauthorized);
             }
 
-            var response = await _userService.EditPassword(email, request);
-            return response.ToActionResult();
+            return await _userService.EditPassword(email, request);
         }
 
         [HttpPut("EditStatus/{id}", Name = nameof(EditStatus))]
@@ -80,8 +75,7 @@ namespace Hexagonal.Api.Controllers.v1
         {
             //TODO: Validate Access
 
-            var response = await _userService.EditStatus(id, request);
-            return response.ToActionResult();
+            return await _userService.EditStatus(id, request);
         }
 
         [HttpPut("EditProfileImage/{id}", Name = nameof(EditProfileImage))]
@@ -93,8 +87,7 @@ namespace Hexagonal.Api.Controllers.v1
         {
             //TODO: Validate userData of Token (id)
 
-            var response = await _userService.EditProfileImage(id, request);
-            return response.ToActionResult();
+            return await _userService.EditProfileImage(id, request);
         }
 
         [HttpPatch("{id}", Name = nameof(PatchUser))]
@@ -105,8 +98,7 @@ namespace Hexagonal.Api.Controllers.v1
         {
             //TODO: Validate userData of Token (id)
 
-            var response = await _userService.Patch(id, request);
-            return response.ToActionResult();
+            return await _userService.Patch(id, request);
         }
 
         [HttpPost("SignIn", Name = nameof(SignIn))]
@@ -114,8 +106,7 @@ namespace Hexagonal.Api.Controllers.v1
         [SwaggerResponse(200, "User and Token", typeof(DTOUserSignInResponse))]
         public async Task<ActionResult> SignIn([FromBody] DTOUserSignInRequest request)
         {
-            var response = await _userService.SignIn(request);
-            return response.ToActionResult();
+            return await _userService.SignIn(request);
         }
 
         private bool ValidateAnonymousEmailToken(string email)

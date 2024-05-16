@@ -7,7 +7,7 @@ namespace Hexagonal.DTOs.Response.Verifications
     /// Represents a response for creating a verification.
     /// </summary>
     [DataContract]
-    public partial class DTOVerificationCreateResponse : DTOResponse
+    public partial record DTOVerificationCreateResponse : DTOResponse
     {
         /// <summary>
         /// Expiration date and time of the verification.

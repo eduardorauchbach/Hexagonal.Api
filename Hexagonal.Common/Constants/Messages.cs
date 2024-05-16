@@ -19,7 +19,7 @@ namespace Hexagonal.Common.Constants
         public const string UserAlreadyExists = "Usuário já cadastrado!";
         public const string UserOrPasswordInvalid = "Usuário ou senha inválido!";
 
-        public const string VerificationDoesNotExists = "Verificação não cadastrada!";
+        public const string VerificationNotFound = "Verificação não encontrada!";
         public const string VerificationExpired = "Verificação não encontrada!";
         public const string VerificationFailed = "Número de verificação inválido!";
     }

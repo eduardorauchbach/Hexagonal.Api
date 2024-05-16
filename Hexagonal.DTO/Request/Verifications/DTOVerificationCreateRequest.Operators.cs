@@ -2,7 +2,7 @@
 
 namespace Hexagonal.DTOs.Request.Verifications
 {
-    public partial class DTOVerificationCreateRequest
+    public partial record DTOVerificationCreateRequest
     {
         public static implicit operator Verification(DTOVerificationCreateRequest dto)
         {

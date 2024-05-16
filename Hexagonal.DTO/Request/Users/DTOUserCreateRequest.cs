@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a user creation request data transfer object.
     /// </summary>
-    public partial class DTOUserCreateRequest
+    public partial record DTOUserCreateRequest
     {
         /// <summary>
         /// The name of the user.

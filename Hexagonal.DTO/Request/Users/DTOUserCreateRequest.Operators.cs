@@ -2,7 +2,7 @@
 
 namespace Hexagonal.DTOs.Request.Users
 {
-    public partial class DTOUserCreateRequest
+    public partial record DTOUserCreateRequest
     {
         public static implicit operator User(DTOUserCreateRequest dto)
         {

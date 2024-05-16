@@ -11,7 +11,7 @@ namespace Hexagonal.DTOs.Response.Users
     /// Represents a response for user sign-in operation.
     /// </summary>
     [DataContract]
-    public class DTOUserSignInResponse
+    public record DTOUserSignInResponse
     {
         /// <summary>
         /// The user information associated with the sign-in.
