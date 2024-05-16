@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hexagonal.DTOs.Request.Users
 {
-    public class DTOUserEditStatusRequest
+    public record DTOUserEditStatusRequest
     {
         public required UserStatus Status { get; set; }
     }

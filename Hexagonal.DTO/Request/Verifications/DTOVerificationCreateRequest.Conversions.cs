@@ -3,7 +3,7 @@ using Hexagonal.Domain.Entities.Verifications;
 
 namespace Hexagonal.DTOs.Request.Verifications
 {
-    public partial class DTOVerificationCreateRequest
+    public partial record DTOVerificationCreateRequest
     {
         public Verification ToDomain() => (Verification)this;
     }

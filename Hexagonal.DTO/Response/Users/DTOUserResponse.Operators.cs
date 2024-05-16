@@ -4,9 +4,9 @@ using Hexagonal.Domain.Entities.Users;
 
 namespace Hexagonal.DTOs.Response.Users
 {
-    public partial class DTOUserResponse
+    public partial record DTOUserResponse
     {
-        public static explicit operator DTOUserResponse(User u)
+        public static implicit operator DTOUserResponse(User u)
         {
             if (u is null)
                 return null;

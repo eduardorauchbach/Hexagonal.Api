@@ -1,5 +1,6 @@
 ﻿using Hexagonal.Common.Configurations;
 using Hexagonal.Common.Constants;
+using Hexagonal.Common.DTO;
 using Hexagonal.Domain.Entities.Verifications;
 using Hexagonal.DTOs.Request.Verifications;
 using Hexagonal.DTOs.Response.Verifications;
@@ -38,7 +39,7 @@ namespace Hexagonal.Services.Implementation
         }
 
         [LogAspect]
-        public async Task<DTOVerificationCreateResponse> Create(DTOVerificationCreateRequest request)
+        public async Task<Result<DTOVerificationCreateResponse>> Create(DTOVerificationCreateRequest request)
         {
             var code = GenerateRandomString();
 
@@ -61,28 +62,32 @@ namespace Hexagonal.Services.Implementation
                 }
             }
 
-            return verification.ToDTOResponse();
+            return Result.Success(verification.ToDTOResponse());
         }
 
         [LogAspect]
-        public async Task<DTOVerificationValidateResponse> Validate(DTOVerificationValidateRequest request)
+        public async Task<Result<DTOVerificationValidateResponse>> Validate(DTOVerificationValidateRequest request)
         {
             var verification = await _verificationRepository.Get(request.Id);
 
-            if (verification == null) return null;
+            if (verification == null)
+            {
+                Result.Failure(Messages.VerificationNotFound, System.Net.HttpStatusCode.NotFound);
+            }
 
             if (verification.ExpiresAt < DateTime.UtcNow)
             {
-                throw new ArgumentException(Messages.VerificationExpired);
+                Result.Failure(Messages.VerificationExpired, System.Net.HttpStatusCode.NotAcceptable);
             }
 
             var success = _appSettings.VerificationMock || _hashService.VerifyValue(request.Value, verification.Value);
-
-            return new DTOVerificationValidateResponse
+            var result = new DTOVerificationValidateResponse
             {
                 Success = success,
                 Token = success ? _tokenService.GenerateAnonymousToken(verification.Origin) : null
             };
+
+            return Result.Success(result);
         }
 
         #region [Auxiliar]

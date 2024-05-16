@@ -3,7 +3,7 @@ using Hexagonal.Domain.Entities.Verifications;
 
 namespace Hexagonal.DTOs.Response.Verifications
 {
-    public partial class DTOVerificationCreateResponse
+    public partial record DTOVerificationCreateResponse
     {
         public static explicit operator DTOVerificationCreateResponse(Verification v)
         {

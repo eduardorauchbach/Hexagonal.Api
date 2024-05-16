@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -27,9 +28,29 @@ namespace Hexagonal.Common.DTO
             return new Result<T>(value, true, null, HttpStatusCode.OK);
         }
 
+        public static Result<object> Success(object value)
+        {
+            return new Result<object>(value, true, null, HttpStatusCode.OK);
+        }
+
         public static implicit operator Result<T>(Result result)
         {
             return new Result<T>(null, result.IsSuccess, result.Message, result.StatusCode);
+        }
+
+        public static implicit operator ActionResult(Result<T> result)
+        {
+            if (result.IsSuccess)
+            {
+                return new OkObjectResult(result.Value);
+            }
+            else
+            {
+                return new ObjectResult(new { result.Message })
+                {
+                    StatusCode = (int)result.StatusCode
+                };
+            }
         }
     }
 
