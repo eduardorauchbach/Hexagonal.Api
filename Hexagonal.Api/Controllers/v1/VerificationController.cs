@@ -1,12 +1,12 @@
-﻿using GestaoVarejoTwoS.Api.Controllers.Helper;
-using Microsoft.AspNetCore.Mvc;
+using Hexagonal.Api.Controllers.Helper;
 using Hexagonal.DTOs.Request.Verifications;
 using Hexagonal.DTOs.Response.Verifications;
 using Hexagonal.Services;
 using Hexagonal.Session;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Hexagonal.Api.Controllers.v1
+namespace Hexagonal.Api.Controllers.v1.Common
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -22,16 +22,16 @@ namespace Hexagonal.Api.Controllers.v1
 
         [HttpPost("", Name = nameof(CreateVerification))]
         [SwaggerOperation(Summary = "Create a new verification", Description = "Creates a verification")]
-        [SwaggerResponse(200, "Created verification", typeof(DTOVerificationCreateResponse))]
-        public async Task<ActionResult> CreateVerification([FromBody] DTOVerificationCreateRequest request)
+        [SwaggerResponse(200, "Created verification", typeof(CreateResponse))]
+        public async Task<ActionResult> CreateVerification([FromBody] CreateRequest request)
         {
             return await _verificationService.Create(request);
         }
 
         [HttpPost("Validate", Name = nameof(ValidateVerification))]
         [SwaggerOperation(Summary = "Validate a verification", Description = "Validate the code of a verification")]
-        [SwaggerResponse(200, "Validation result", typeof(DTOVerificationValidateResponse))]
-        public async Task<ActionResult> ValidateVerification([FromBody] DTOVerificationValidateRequest request)
+        [SwaggerResponse(200, "Validation result", typeof(ValidateResponse))]
+        public async Task<ActionResult> ValidateVerification([FromBody] ValidateRequest request)
         {
             return await _verificationService.Validate(request);
         }

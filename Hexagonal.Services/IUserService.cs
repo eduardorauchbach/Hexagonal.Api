@@ -1,19 +1,21 @@
 ﻿using Hexagonal.Common.DTO;
+using Hexagonal.Common.Pagging;
 using Hexagonal.Domain.Entities.Users;
-using Hexagonal.DTOs.Request.Users;
-using Hexagonal.DTOs.Response.Users;
+using Hexagonal.DTO.Request.Users;
+using Hexagonal.DTO.Response.Users;
 
 namespace Hexagonal.Services
 {
     public interface IUserService
     {
-        Task<Result<DTOUserResponse>> Create(DTOUserCreateRequest request);
+        Task<Result<Response>> Create(CreateRequest request);
         Task<User> CreateClean(string email);
-        Task<Result<DTOUserResponse>> EditPassword(string email, DTOUserEditPasswordRequest request);
-        Task<Result<DTOUserResponse>> EditProfileImage(Guid id, DTOUserEditProfileImageRequest request);
-        Task<Result<DTOUserResponse>> EditStatus(Guid id, DTOUserEditStatusRequest request);
-        Task<Result<DTOUserResponse>> Get(Guid id);
-        Task<Result<DTOUserResponse>> Patch(Guid id, DTOUserPatchRequest request);
-        Task<Result<DTOUserSignInResponse>> SignIn(DTOUserSignInRequest login);
+        Task<Result<Response>> EditPassword(string email, EditPasswordRequest request);
+        Task<Result<Response>> EditProfileImage(Guid id, EditProfileImageRequest request);
+        Task<Result<Response>> EditStatus(Guid id, EditStatusRequest request);
+        Task<Result<Response>> Get(Guid id);
+        Task<Result<PageResponse<GetAllResponse>>> GetAll(GetAllRequest request);
+        Task<Result<Response>> Patch(Guid id, PatchRequest request);
+        Task<Result<SignInResponse>> SignIn(SignInRequest login);
     }
 }

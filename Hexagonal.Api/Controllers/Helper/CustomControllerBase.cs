@@ -1,21 +1,25 @@
-﻿
-using Microsoft.AspNetCore.Mvc.Filters;
+using Hexagonal.Common.Constants;
+using Hexagonal.Common.DTO;
+using Hexagonal.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
-using System.Diagnostics;
 using Hexagonal.Session;
+using Hexagonal.Domain.Entities.Profiles;
 
-namespace GestaoVarejoTwoS.Api.Controllers.Helper
+namespace Hexagonal.Api.Controllers.Helper
 {
     [Consumes("application/json")]
     [Produces("application/json")]
     public class CustomControllerBase : Controller
     {
+        protected readonly ITokenService TokenService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomControllerBase(IUnitOfWork unitOfWork)
+        public CustomControllerBase(IUnitOfWork unitOfWork, ITokenService tokenService = null)
         {
             _unitOfWork = unitOfWork;
+            TokenService = tokenService;
         }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -37,25 +41,31 @@ namespace GestaoVarejoTwoS.Api.Controllers.Helper
                 }
             }
 
-            HandleKnownExceptions(executedContext);
+            executedContext.HandleKnownExceptions();
         }
 
-        private static void HandleKnownExceptions(ActionExecutedContext executedContext)
+        protected bool HasPermission(out ActionResult result)
         {
-            if (executedContext.Exception is null) return;
+            result = null;
 
-            var response = new
+            if (!TokenService.IsAdmin(HttpContext))
             {
-                executedContext.Exception.Message,
-                executedContext.Exception.StackTrace
-            };
+                result = (ActionResult)Result.Failure(Messages.GenericNotAllowedForUser, HttpStatusCode.MethodNotAllowed);
+                return false;
+            }
+            return true;
+        }
 
-            executedContext.Result = new ObjectResult(response)
+        protected bool HasPermission(ProfileAreaType area, out ActionResult result, bool add = false, bool update = false, bool delete = false)
+        {
+            result = null;
+
+            if (!TokenService.HasPermission(HttpContext, area, add, update, delete))
             {
-                StatusCode = (int)HttpStatusCode.InternalServerError
-            };
-
-            executedContext.ExceptionHandled = true;
+                result = (ActionResult)Result.Failure(Messages.GenericNotAllowedForUser, HttpStatusCode.MethodNotAllowed);
+                return false;
+            }
+            return true;
         }
     }
 }

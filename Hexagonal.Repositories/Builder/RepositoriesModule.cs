@@ -7,6 +7,7 @@ namespace Hexagonal.Repositories.Builder
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVerificationRepository, VerificationRepository>();
 

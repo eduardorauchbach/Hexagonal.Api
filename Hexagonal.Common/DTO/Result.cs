@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Hexagonal.Common.Constants;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hexagonal.Common.DTO
 {
-    public class Result<T> where T : class
+    public class Result<T>
     {
         public T Value { get; }
         public bool IsSuccess { get; }
@@ -23,19 +19,19 @@ namespace Hexagonal.Common.DTO
             StatusCode = httpStatusCode;
         }
 
-        public static Result<T> Success<T>(T value) where T : class
+        public static Result<T> Success<T>(T value)
         {
             return new Result<T>(value, true, null, HttpStatusCode.OK);
         }
 
-        public static Result<object> Success(object value)
+        public static Result<T> Failure<T>(T value, string message, HttpStatusCode? httpStatusCode = null)
         {
-            return new Result<object>(value, true, null, HttpStatusCode.OK);
+            return new Result<T>(value, false, message, httpStatusCode ?? HttpStatusCode.InternalServerError);
         }
 
         public static implicit operator Result<T>(Result result)
         {
-            return new Result<T>(null, result.IsSuccess, result.Message, result.StatusCode);
+            return new Result<T>((T)result.Value, result.IsSuccess, result.Message, result.StatusCode);
         }
 
         public static implicit operator ActionResult(Result<T> result)
@@ -61,9 +57,14 @@ namespace Hexagonal.Common.DTO
         {
         }
 
-        public static Result Failure(string message, HttpStatusCode httpStatusCode)
+        public static Result Success()
         {
-            return new Result(false, message, httpStatusCode);
+            return new Result(true, Messages.GenericSuccess, HttpStatusCode.OK);
+        }
+
+        public static Result Failure(string message, HttpStatusCode? httpStatusCode = null)
+        {
+            return new Result(false, message, httpStatusCode ?? HttpStatusCode.InternalServerError);
         }
     }
 }
