@@ -32,7 +32,7 @@ namespace Hexagonal.Common.Pagging
         public int TotalItems { get; init; }
 
         [DataMember]
-        public IEnumerable<T> Items { get; init; }
+        public IList<T> Items { get; init; }
 
         public PageResponse<T2> ConvertItems<T2>(Func<T, T2> converter)
         {
@@ -41,7 +41,7 @@ namespace Hexagonal.Common.Pagging
                 CurrentPage = CurrentPage,
                 PageSize = PageSize,
                 TotalItems = TotalItems,
-                Items = Items.Select(converter)
+                Items = Items.Select(converter).ToList()
             };
         }
     }
