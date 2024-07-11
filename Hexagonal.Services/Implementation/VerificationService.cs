@@ -39,7 +39,7 @@ namespace Hexagonal.Services.Implementation
         }
 
         [LogAspect]
-        public async Task<Result<DTOVerificationCreateResponse>> Create(DTOVerificationCreateRequest request)
+        public async Task<Result<CreateResponse>> Create(CreateRequest request)
         {
             var code = GenerateRandomString();
 
@@ -62,11 +62,11 @@ namespace Hexagonal.Services.Implementation
                 }
             }
 
-            return Result.Success(verification.ToDTOResponse());
+            return Result.Success(verification.ToResponse());
         }
 
         [LogAspect]
-        public async Task<Result<DTOVerificationValidateResponse>> Validate(DTOVerificationValidateRequest request)
+        public async Task<Result<ValidateResponse>> Validate(ValidateRequest request)
         {
             var verification = await _verificationRepository.Get(request.Id);
 
@@ -81,7 +81,7 @@ namespace Hexagonal.Services.Implementation
             }
 
             var success = _appSettings.VerificationMock || _hashService.VerifyValue(request.Value, verification.Value);
-            var result = new DTOVerificationValidateResponse
+            var result = new ValidateResponse
             {
                 Success = success,
                 Token = success ? _tokenService.GenerateAnonymousToken(verification.Origin) : null

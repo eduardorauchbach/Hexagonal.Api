@@ -6,7 +6,7 @@ namespace Hexagonal.Services
 {
     public interface IVerificationService
     {
-        Task<Result<DTOVerificationCreateResponse>> Create(DTOVerificationCreateRequest request);
-        Task<Result<DTOVerificationValidateResponse>> Validate(DTOVerificationValidateRequest request);
+        Task<Result<CreateResponse>> Create(CreateRequest request);
+        Task<Result<ValidateResponse>> Validate(ValidateRequest request);
     }
 }

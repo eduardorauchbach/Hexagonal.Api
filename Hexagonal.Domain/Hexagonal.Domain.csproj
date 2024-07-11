@@ -25,9 +25,4 @@
     <ProjectReference Include="..\Hexagonal.Common\Hexagonal.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>

@@ -1,9 +1,10 @@
-﻿using Hexagonal.Common.Constants;
+using Hexagonal.Common.Constants;
 using Hexagonal.Common.DTO;
 using Hexagonal.Common.Extensions;
+using Hexagonal.Common.Pagging;
 using Hexagonal.Domain.Entities.Users;
-using Hexagonal.DTOs.Request.Users;
-using Hexagonal.DTOs.Response.Users;
+using Hexagonal.DTO.Request.Users;
+using Hexagonal.DTO.Response.Users;
 using Hexagonal.Repositories;
 using RauchTech.Logging;
 using RauchTech.Logging.Aspects;
@@ -20,13 +21,15 @@ namespace Hexagonal.Services.Implementation
         private readonly IHashService _hashService;
         private readonly ITokenService _tokenService;
         private readonly IBlobService _blobService;
+        private readonly IProfileRepository _profileRepository;
 
         public UserService(
             ICustomLog<UserService> log,
             IUserRepository userRepository,
             IHashService hashService,
             ITokenService tokenService,
-            IBlobService blobService)
+            IBlobService blobService,
+            IProfileRepository profileRepository)
         {
             _log = log;
 
@@ -34,10 +37,11 @@ namespace Hexagonal.Services.Implementation
             _hashService = hashService;
             _tokenService = tokenService;
             _blobService = blobService;
+            _profileRepository = profileRepository;
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> Create(DTOUserCreateRequest request)
+        public async Task<Result<Response>> Create(CreateRequest request)
         {
             var oldUser = await _userRepository.Get(request.Email);
             if (oldUser is not null && oldUser.IsCompleted)
@@ -62,7 +66,7 @@ namespace Hexagonal.Services.Implementation
                 await _userRepository.Update(user);
             }
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         /// <summary>
@@ -85,7 +89,7 @@ namespace Hexagonal.Services.Implementation
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> Get(Guid id)
+        public async Task<Result<Response>> Get(Guid id)
         {
             var user = await _userRepository.Get(id);
             if (user is null)
@@ -93,11 +97,20 @@ namespace Hexagonal.Services.Implementation
                 return Result.Failure(Messages.UserNotFound, HttpStatusCode.NotFound);
             }
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> EditPassword(string email, DTOUserEditPasswordRequest request)
+        public async Task<Result<PageResponse<GetAllResponse>>> GetAll(GetAllRequest request)
+        {
+            var usersPage = await _userRepository.GetAll(request.ToPageFilter());
+
+            var response = usersPage.ConvertItems(user => user.ToResponse());
+            return Result.Success(response);
+        }
+
+        [LogAspect]
+        public async Task<Result<Response>> EditPassword(string email, EditPasswordRequest request)
         {
             var user = await _userRepository.Get(email);
             if (user is null)
@@ -110,11 +123,11 @@ namespace Hexagonal.Services.Implementation
 
             await _userRepository.Update(user);
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> EditProfileImage(Guid id, DTOUserEditProfileImageRequest request)
+        public async Task<Result<Response>> EditProfileImage(Guid id, EditProfileImageRequest request)
         {
             if (request.FileData is null)
             {
@@ -143,11 +156,11 @@ namespace Hexagonal.Services.Implementation
 
             await _userRepository.Update(user);
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> EditStatus(Guid id, DTOUserEditStatusRequest request)
+        public async Task<Result<Response>> EditStatus(Guid id, EditStatusRequest request)
         {
             var user = await _userRepository.Get(id);
             if (user is null)
@@ -160,7 +173,7 @@ namespace Hexagonal.Services.Implementation
 
             await _userRepository.Update(user);
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         /// <summary>
@@ -170,7 +183,7 @@ namespace Hexagonal.Services.Implementation
         /// <param name="request"></param>
         /// <returns></returns>
         [LogAspect]
-        public async Task<Result<DTOUserResponse>> Patch(Guid id, DTOUserPatchRequest request)
+        public async Task<Result<Response>> Patch(Guid id, PatchRequest request)
         {
             var user = await _userRepository.Get(id);
             if (user is null)
@@ -180,20 +193,23 @@ namespace Hexagonal.Services.Implementation
 
             user.Name = request.Name ?? user.Name;
             user.Email = request.Email ?? user.Email;
-            user.StatusInfo = request.StatusInfo ?? user.StatusInfo;
+            user.Phone = request.Phone ?? user.Phone;
+            user.Status = request.Status ?? user.Status;
+            user.ProfileId = request.ProfileId ?? user.ProfileId;
+
             user.Update();
 
             await _userRepository.Update(user);
 
-            return Result.Success(user.ToDTOResponse());
+            return Result.Success(user.ToResponse());
         }
 
         [LogAspect]
-        public async Task<Result<DTOUserSignInResponse>> SignIn(DTOUserSignInRequest login)
+        public async Task<Result<SignInResponse>> SignIn(SignInRequest login)
         {
             User? user = await _userRepository.Get(login.Email);
 
-            if (user is null || !user.IsCompleted)
+            if (user is null || !user.IsAdmin)
             {
                 return Result.Failure(Messages.UserNotFound, HttpStatusCode.NotFound);
             }
@@ -208,10 +224,15 @@ namespace Hexagonal.Services.Implementation
             user.LastSignIn = DateTime.UtcNow;
             await _userRepository.Update(user);
 
-            var response = new DTOUserSignInResponse
+            var userResponse = user.ToResponse();
+
+            if (userResponse.ProfileId.HasValue)
+                userResponse.Profile = await _profileRepository.Get(user.ProfileId.Value);
+
+            var response = new SignInResponse
             {
-                User = user.ToDTOResponse(),
-                Token = _tokenService.GenerateToken(user)
+                User = userResponse,
+                Token = _tokenService.GenerateToken(userResponse)
             };
 
             return Result.Success(response);

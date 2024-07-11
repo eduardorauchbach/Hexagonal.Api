@@ -22,16 +22,26 @@ namespace Hexagonal.Session.Implementation
 
         public void Commit()
         {
-            _session.Transaction.Commit();
+            if (_session.Transaction != null)
+            {
+                _session.Transaction.Commit();
+            }
             Dispose();
         }
 
         public void Rollback()
         {
-            _session.Transaction.Rollback();
+            if (_session.Transaction != null)
+            {
+                _session.Transaction.Rollback();
+            }
             Dispose();
         }
 
-        public void Dispose() => _session.Transaction?.Dispose();
+        public void Dispose()
+        {
+            _session.Transaction?.Dispose();
+            _session.Transaction = null;
+        }
     }
 }

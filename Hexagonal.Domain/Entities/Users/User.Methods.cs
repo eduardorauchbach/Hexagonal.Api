@@ -1,4 +1,4 @@
-﻿namespace Hexagonal.Domain.Entities.Users
+namespace Hexagonal.Domain.Entities.Users
 {
     public partial class User
     {
