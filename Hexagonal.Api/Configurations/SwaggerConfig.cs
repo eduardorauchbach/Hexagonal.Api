@@ -50,6 +50,8 @@ namespace Hexagonal.Api.Configurations
                  options.IncludeXmlComments(xmlPathCommon);
                  options.IncludeXmlComments(xmlPathDTO);
                  options.UseInlineDefinitionsForEnums();
+
+                 options.CustomSchemaIds(type => type.FullName);
              });
 
             return services;
